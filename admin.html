@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>BIXOPLAY | لوحة الإدارة</title>
+
+  <link
+    rel="stylesheet"
+    href="./css/style.css"
+  >
+</head>
+
+<body class="dashboard-page">
+
+<main
+  id="adminDashboard"
+  class="container"
+  hidden
+>
+
+  <header class="dashboard-header">
+
+    <div class="brand">
+      <img
+        src="./Image/company-logo.png"
+        alt="BIXOPLAY"
+      >
+
+      <div>
+        <h1>لوحة تحكم الإدارة</h1>
+        <p id="adminWelcome" class="muted"></p>
+      </div>
+    </div>
+
+    <button
+      id="logoutBtn"
+      class="logout-btn"
+      type="button"
+    >
+      <span>تسجيل الخروج</span>
+      <span aria-hidden="true">↪</span>
+    </button>
+
+  </header>
+
+  <section class="stats">
+
+    <article class="stat">
+      <span>عدد الاشتراكات</span>
+      <strong id="totalSubscriptions">0</strong>
+    </article>
+
+    <article class="stat">
+      <span>إجمالي المبيعات ($)</span>
+      <strong id="totalSales">$0.00</strong>
+    </article>
+
+    <article class="stat">
+      <span>عدد الموظفين</span>
+      <strong id="totalEmployees">0</strong>
+    </article>
+
+    <article class="stat">
+      <span>الاشتراكات النشطة</span>
+      <strong id="activeSubscriptions">0</strong>
+    </article>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>فلاتر التقارير</h2>
+
+    <div class="filters">
+
+      <div class="field">
+        <label for="monthFilter">
+          الشهر
+        </label>
+
+        <input
+          id="monthFilter"
+          type="month"
+        >
+      </div>
+
+      <div class="field">
+        <label for="employeeFilter">
+          الموظف
+        </label>
+
+        <select id="employeeFilter">
+          <option value="all">
+            كل الموظفين
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="countryFilter">
+          بلد العميل
+        </label>
+
+        <select id="countryFilter">
+          <option value="all">
+            كل الدول
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="serverFilter">
+          نوع السيرفر
+        </label>
+
+        <select id="serverFilter">
+          <option value="all">
+            كل السيرفرات
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="typeFilter">
+          نوع الاشتراك
+        </label>
+
+        <select id="typeFilter">
+          <option value="all">
+            كل الأنواع
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="paymentFilter">
+          طريقة الدفع
+        </label>
+
+        <select id="paymentFilter">
+          <option value="all">
+            كل طرق الدفع
+          </option>
+        </select>
+      </div>
+
+      <button
+        id="resetFilters"
+        type="button"
+        class="btn btn-light"
+      >
+        مسح الفلاتر
+      </button>
+
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>أداء الموظفين</h2>
+
+    <div class="table-scroll">
+      <table>
+
+        <thead>
+          <tr>
+            <th>الموظف</th>
+            <th>عدد الاشتراكات</th>
+            <th>إجمالي المبيعات</th>
+          </tr>
+        </thead>
+
+        <tbody id="employeesReport"></tbody>
+
+      </table>
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <div class="section-heading">
+
+      <h2>جميع الاشتراكات</h2>
+
+      <div class="button-group">
+
+        <button
+          id="reloadBtn"
+          type="button"
+          class="btn btn-light"
+        >
+          تحديث البيانات
+        </button>
+
+        <button
+          id="exportBtn"
+          type="button"
+          class="btn btn-gradient"
+        >
+          تصدير CSV
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="table-scroll">
+      <table>
+
+        <thead>
+          <tr>
+            <th>الموظف</th>
+            <th>اسم العميل</th>
+            <th>Username</th>
+            <th>البلد</th>
+            <th>التليفون</th>
+            <th>السيرفر</th>
+            <th>نوع الاشتراك</th>
+            <th>طريقة الدفع</th>
+            <th>المدة</th>
+            <th>البداية</th>
+            <th>الانتهاء</th>
+            <th>السعر ($)</th>
+            <th>الحالة</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+
+        <tbody id="subscriptionsReport"></tbody>
+
+      </table>
+    </div>
+
+  </section>
+
+  <p
+    id="adminMessage"
+    class="form-message"
+    role="status"
+  ></p>
+
+</main>
+
+<!-- Admin edit dialog -->
+
+<dialog
+  id="adminEditDialog"
+  class="edit-dialog"
+>
+
+  <form id="adminEditForm">
+
+    <h2>تعديل بيانات الاشتراك</h2>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="editCustomer">
+          اسم العميل
+        </label>
+        <input
+          id="editCustomer"
+          maxlength="150"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="editUsername">
+          Username العميل
+        </label>
+        <input
+          id="editUsername"
+          maxlength="100"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="editCountry">
+          بلد العميل
+        </label>
+        <input
+          id="editCountry"
+          maxlength="100"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="editPhone">
+          رقم التليفون
+        </label>
+        <input
+          id="editPhone"
+          type="tel"
+          maxlength="30"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="editServer">
+          نوع السيرفر
+        </label>
+
+        <select id="editServer" required>
+          <option value="">اختر السيرفر</option>
+          <option value="MH">MH</option>
+          <option value="Neo">Neo</option>
+          <option value="Strong">Strong</option>
+          <option value="Dana">Dana</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="editType">
+          نوع الاشتراك
+        </label>
+
+        <select id="editType" required>
+          <option value="">اختر النوع</option>
+          <option value="Renew">Renew</option>
+          <option value="Ads">Ads</option>
+          <option value="Referral">Referral</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="editPaymentMethod">
+          طريقة الدفع
+        </label>
+
+        <select id="editPaymentMethod" required>
+          <option value="">اختر طريقة الدفع</option>
+          <option value="PayPal Ahmed">PayPal Ahmed</option>
+          <option value="PayPal Mohamed">PayPal Mohamed</option>
+          <option value="Stripe">Stripe</option>
+          <option value="Zelle">Zelle</option>
+          <option value="Cash App">Cash App</option>
+          <option value="Venmo">Venmo</option>
+          <option value="Bank">Bank</option>
+        </select>
+      </div>
+
+      <div class="field">
+
+        <label for="editDurationValue">
+          مدة الاشتراك
+        </label>
+
+        <div class="duration-inputs">
+
+          <input
+            id="editDurationValue"
+            type="number"
+            min="1"
+            max="1200"
+            step="1"
+            required
+          >
+
+          <select id="editDurationUnit">
+            <option value="months">شهور</option>
+            <option value="years">سنوات</option>
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label for="editStart">
+          تاريخ البداية
+        </label>
+
+        <input
+          id="editStart"
+          type="date"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="editEnd">
+          تاريخ الانتهاء
+        </label>
+
+        <input
+          id="editEnd"
+          type="date"
+          readonly
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="editAmount">
+          السعر ($)
+        </label>
+
+        <input
+          id="editAmount"
+          type="number"
+          min="0"
+          max="9999999999.99"
+          step="0.01"
+          required
+        >
+      </div>
+
+    </div>
+
+    <p
+      id="editMessage"
+      class="form-message"
+      role="status"
+    ></p>
+
+    <div class="button-group modal-actions">
+
+      <button
+        id="adminSaveEdit"
+        type="submit"
+        class="btn btn-gradient"
+      >
+        حفظ التعديلات
+      </button>
+
+      <button
+        id="adminCancelEdit"
+        type="button"
+        class="btn btn-light"
+      >
+        إلغاء
+      </button>
+
+    </div>
+
+  </form>
+
+</dialog>
+
+<p
+  id="pageMessage"
+  class="page-message"
+  role="alert"
+>
+  جاري تحميل لوحة الإدارة...
+</p>
+
+<script
+  type="module"
+  src="./js/admin.js"
+></script>
+
+</body>
+</html>

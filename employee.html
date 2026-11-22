@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>BIXOPLAY | لوحة الموظف</title>
+
+  <link
+    rel="stylesheet"
+    href="./css/style.css"
+  >
+</head>
+
+<body class="dashboard-page">
+
+  <main
+    id="employeeDashboard"
+    class="container"
+    hidden
+  >
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+
+      <div class="brand">
+
+        <img
+          src="./Image/company-logo.png"
+          alt="BIXOPLAY Logo"
+        >
+
+        <div>
+          <h1>لوحة الموظف</h1>
+
+          <p
+            id="employeeWelcome"
+            class="muted"
+          ></p>
+        </div>
+
+      </div>
+
+      <button
+        id="logoutBtn"
+        type="button"
+        class="logout-btn"
+      >
+        <span>تسجيل الخروج</span>
+        <span aria-hidden="true">↪</span>
+      </button>
+
+    </header>
+
+    <!-- SUBSCRIPTION FORM -->
+    <section
+      id="formSection"
+      class="panel"
+    >
+
+      <div class="section-heading">
+
+        <h2 id="formTitle">
+          إضافة اشتراك جديد
+        </h2>
+
+        <button
+          id="cancelEditBtn"
+          type="button"
+          class="btn btn-light"
+          hidden
+        >
+          إلغاء التعديل
+        </button>
+
+      </div>
+
+      <form
+        id="subscriptionForm"
+        class="form-grid"
+      >
+
+        <!-- CUSTOMER NAME -->
+        <div class="field">
+
+          <label for="customerName">
+            اسم العميل
+          </label>
+
+          <input
+            id="customerName"
+            type="text"
+            maxlength="150"
+            autocomplete="off"
+            required
+          >
+
+        </div>
+
+        <!-- CUSTOMER USERNAME -->
+        <div class="field">
+
+          <label for="customerUsername">
+            Username العميل
+          </label>
+
+          <input
+            id="customerUsername"
+            type="text"
+            maxlength="100"
+            autocomplete="off"
+            required
+          >
+
+        </div>
+
+        <!-- CUSTOMER COUNTRY -->
+        <div class="field">
+
+          <label for="country">
+            بلد العميل
+          </label>
+
+          <input
+            id="country"
+            type="text"
+            maxlength="100"
+            required
+          >
+
+        </div>
+
+        <!-- CUSTOMER PHONE -->
+        <div class="field">
+
+          <label for="customerPhone">
+            رقم تليفون العميل
+          </label>
+
+          <input
+            id="customerPhone"
+            type="tel"
+            maxlength="30"
+            placeholder="+201xxxxxxxxx"
+            required
+          >
+
+        </div>
+
+        <!-- SERVER -->
+        <div class="field">
+
+          <label for="subscriptionName">
+            نوع السيرفر
+          </label>
+
+          <select
+            id="subscriptionName"
+            required
+          >
+
+            <option value="">
+              اختر نوع السيرفر
+            </option>
+
+            <option value="MH">MH</option>
+            <option value="Neo">Neo</option>
+            <option value="Strong">Strong</option>
+            <option value="Dana">Dana</option>
+
+          </select>
+
+        </div>
+
+        <!-- SUBSCRIPTION TYPE -->
+        <div class="field">
+
+          <label for="subscriptionType">
+            نوع الاشتراك
+          </label>
+
+          <select
+            id="subscriptionType"
+            required
+          >
+
+            <option value="">
+              اختر نوع الاشتراك
+            </option>
+
+            <option value="Renew">Renew</option>
+            <option value="Ads">Ads</option>
+            <option value="Referral">Referral</option>
+
+          </select>
+
+        </div>
+
+        <!-- PAYMENT METHOD -->
+        <div class="field">
+
+          <label for="paymentMethod">
+            طريقة الدفع
+          </label>
+
+          <select
+            id="paymentMethod"
+            required
+          >
+
+            <option value="">
+              اختر طريقة الدفع
+            </option>
+
+            <option value="PayPal Ahmed">
+              PayPal Ahmed
+            </option>
+
+            <option value="PayPal Mohamed">
+              PayPal Mohamed
+            </option>
+
+            <option value="Stripe">
+              Stripe
+            </option>
+
+            <option value="Zelle">
+              Zelle
+            </option>
+
+            <option value="Cash App">
+              Cash App
+            </option>
+
+            <option value="Venmo">
+              Venmo
+            </option>
+
+            <option value="Bank">
+              Bank
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- CUSTOM DURATION -->
+        <div class="field">
+
+          <label for="durationValue">
+            مدة الاشتراك
+          </label>
+
+          <div class="duration-inputs">
+
+            <input
+  id="durationValue"
+  type="number"
+  min="0.5"
+  max="1200"
+  step="0.5"
+  placeholder="مثلاً 1.5 أو 2.5"
+  required
+>
+
+            <select
+              id="durationUnit"
+              aria-label="وحدة مدة الاشتراك"
+            >
+
+              <option value="months">
+                شهور
+              </option>
+
+              <option value="years">
+                سنوات
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <!-- START DATE -->
+        <div class="field">
+
+          <label for="startDate">
+            تاريخ البداية
+          </label>
+
+          <input
+            id="startDate"
+            type="date"
+            required
+          >
+
+        </div>
+
+        <!-- END DATE -->
+        <div class="field">
+
+          <label for="endDate">
+            تاريخ الانتهاء
+          </label>
+
+          <input
+            id="endDate"
+            type="date"
+            readonly
+            required
+          >
+
+        </div>
+
+        <!-- PRICE: NEW SUBSCRIPTION ONLY -->
+        <div
+          id="priceField"
+          class="field"
+        >
+
+          <label for="amount">
+            قيمة الاشتراك ($)
+          </label>
+
+          <input
+            id="amount"
+            type="number"
+            min="0"
+            max="9999999999.99"
+            step="0.01"
+            required
+          >
+
+          <small class="muted">
+            يتم إدخال السعر عند التسجيل فقط.
+            بعد الحفظ، لا يمكن للموظف مشاهدة
+            السعر أو تعديله.
+          </small>
+
+        </div>
+
+        <!-- SAVE BUTTON -->
+        <div class="form-actions">
+
+          <button
+            id="saveBtn"
+            type="submit"
+            class="btn btn-gradient btn-full"
+          >
+            حفظ الاشتراك
+          </button>
+
+        </div>
+
+      </form>
+
+      <p
+        id="formMessage"
+        class="form-message"
+        role="status"
+      ></p>
+
+    </section>
+
+    <!-- EMPLOYEE SUBSCRIPTIONS -->
+    <section class="panel">
+
+      <div class="section-heading">
+
+        <h2>الاشتراكات المسجلة</h2>
+
+        <button
+          id="refreshBtn"
+          type="button"
+          class="btn btn-light"
+        >
+          تحديث البيانات
+        </button>
+
+      </div>
+
+      <div class="table-scroll">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>اسم العميل</th>
+              <th>Username</th>
+              <th>بلد العميل</th>
+              <th>رقم التليفون</th>
+              <th>نوع السيرفر</th>
+              <th>نوع الاشتراك</th>
+              <th>طريقة الدفع</th>
+              <th>المدة</th>
+              <th>تاريخ البداية</th>
+              <th>تاريخ الانتهاء</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+
+          <tbody id="subscriptionsBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- LOADING / ERROR MESSAGE -->
+  <p
+    id="pageMessage"
+    class="page-message"
+    role="alert"
+  >
+    جاري تحميل لوحة الموظف...
+  </p>
+
+  <!-- EMPLOYEE JAVASCRIPT -->
+  <script
+    type="module"
+    src="./js/employee.js"
+  ></script>
+
+</body>
+</html>
